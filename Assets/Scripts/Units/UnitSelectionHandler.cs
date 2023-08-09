@@ -10,25 +10,18 @@ public class UnitSelectionHandler : MonoBehaviour
     [SerializeField]
     private LayerMask _layerMask = new();
 
-    private Camera _mainCamera;
-
-    private List<Unit> _selectedUnits = new();
-
-    private void Start()
-    {
-        _mainCamera = Camera.main;
-    }
+    public List<Unit> SelectedUnits { get; } = new();
 
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             // Start selection area
-            foreach (Unit selectedUnit in _selectedUnits)
+            foreach (Unit selectedUnit in SelectedUnits)
             {
                 selectedUnit.Deselect();
             }
-            _selectedUnits.Clear();
+            SelectedUnits.Clear();
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
@@ -38,7 +31,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void ClearSelectionArea()
     {
-        Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
             return;
@@ -47,9 +40,9 @@ public class UnitSelectionHandler : MonoBehaviour
         if (!unit.isOwned)
             return;
 
-        _selectedUnits.Add(unit);
+        SelectedUnits.Add(unit);
 
-        foreach (Unit selectedUnit in _selectedUnits)
+        foreach (Unit selectedUnit in SelectedUnits)
         {
             selectedUnit.Select();
         }

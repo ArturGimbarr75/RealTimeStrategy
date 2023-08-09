@@ -1382,8 +1382,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1620930569}
   - component: {fileID: 1620930570}
+  - component: {fileID: 1620930571}
   m_Layer: 0
-  m_Name: UnitSelectionHandler
+  m_Name: UnitHandlers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1416,6 +1417,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f92b7f9b9fe53c469740b10455bda9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+--- !u!114 &1620930571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620930568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7d0b87a8a00b34b970748bc3d431cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitSelectionHandler: {fileID: 1620930570}
   _layerMask:
     serializedVersion: 2
     m_Bits: 1
