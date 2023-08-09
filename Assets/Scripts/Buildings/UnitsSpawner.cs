@@ -29,6 +29,7 @@ public class UnitsSpawner : NetworkBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        // TODO: Fix left click
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
         if (!isOwned)

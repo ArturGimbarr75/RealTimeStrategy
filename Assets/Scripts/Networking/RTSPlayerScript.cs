@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RTSPlayerScript : NetworkBehaviour
 {
-    [SerializeField]
-    private List<Unit> _myUnits = new();
+    public List<Unit> MyUnits { get; private set; } = new();
 
     #region Server
 
@@ -26,7 +25,7 @@ public class RTSPlayerScript : NetworkBehaviour
         if (unit.connectionToClient.connectionId != connectionToClient.connectionId)
             return;
 
-        _myUnits.Add(unit);
+        MyUnits.Add(unit);
     }
 
     private void ServerHandleUnitDespawned(Unit unit)
@@ -34,7 +33,7 @@ public class RTSPlayerScript : NetworkBehaviour
         if (unit.connectionToClient.connectionId != connectionToClient.connectionId)
             return;
 
-        _myUnits.Remove(unit);
+        MyUnits.Remove(unit);
     }
 
     #endregion
@@ -64,7 +63,7 @@ public class RTSPlayerScript : NetworkBehaviour
         if (!isOwned)
             return;
 
-        _myUnits.Add(unit);
+        MyUnits.Add(unit);
     }
 
     private void AuthorityHandleUnitSpawned(Unit unit)
@@ -72,7 +71,7 @@ public class RTSPlayerScript : NetworkBehaviour
         if (!isOwned)
             return;
 
-        _myUnits.Remove(unit);
+        MyUnits.Remove(unit);
     }
 
     #endregion
