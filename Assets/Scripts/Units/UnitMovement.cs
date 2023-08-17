@@ -9,6 +9,13 @@ public class UnitMovement : NetworkBehaviour
 
     #region Server
 
+    [ServerCallback]
+    private void Update()
+    {
+        if (_agent.hasPath && _agent.remainingDistance < _agent.stoppingDistance)
+            _agent.ResetPath();
+    }
+
     [Command]
     public void CmdMove(Vector3 position)
     {
