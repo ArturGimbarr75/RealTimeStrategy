@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Targeter : NetworkBehaviour
 {
-    private Targetable _target;
+    public Targetable Target { get; private set; }
 
     #region Server
 
@@ -13,13 +13,13 @@ public class Targeter : NetworkBehaviour
         if (!target.TryGetComponent(out Targetable newTarget))
             return;
 
-        _target = newTarget;
+        Target = newTarget;
     }
 
     [Server]
     public void ClearTarget()
     {
-        _target = null;
+        Target = null;
     }
 
     #endregion
