@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Unit : NetworkBehaviour
 {
     public UnitMovement Movement { get; private set; }
+    public Targeter Targeter { get; private set; }
 
     [SerializeField]
     private UnityEvent _onSelected;
@@ -21,6 +22,7 @@ public class Unit : NetworkBehaviour
     private void Start()
     {
         Movement = GetComponent<UnitMovement>();
+        Targeter = GetComponent<Targeter>();
     }
 
     #region Server

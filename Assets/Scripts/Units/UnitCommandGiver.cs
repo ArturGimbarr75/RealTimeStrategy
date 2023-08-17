@@ -19,6 +19,17 @@ public class UnitCommandGiver : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
             return;
 
+        if (hit.collider.TryGetComponent(out Targetable target))
+        {
+            if (target.isOwned)
+            {
+                TryMove(hit.point);
+                return;
+            }
+
+            TryTarget(target);
+            return;
+        }
         TryMove(hit.point);
     }
 
@@ -26,5 +37,13 @@ public class UnitCommandGiver : MonoBehaviour
     {
         foreach (Unit unit in _unitSelectionHandler.SelectedUnits)
             unit.Movement.CmdMove(point);
+    }
+
+    private void TryTarget(Targetable target)
+    {
+        foreach (Unit unit in _unitSelectionHandler.SelectedUnits)
+        {
+            unit.Targeter.CmdSetTarget(target.gameObject);
+        }
     }
 }
