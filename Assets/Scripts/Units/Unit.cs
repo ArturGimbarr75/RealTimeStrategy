@@ -8,6 +8,8 @@ public class Unit : NetworkBehaviour
     public UnitMovement Movement { get; private set; }
     public Targeter Targeter { get; private set; }
 
+    private Health _health;
+
     [SerializeField]
     private UnityEvent _onSelected;
     [SerializeField]
@@ -30,28 +32,34 @@ public class Unit : NetworkBehaviour
     public override void OnStartServer()
     {
         OnServerUnitSpawned?.Invoke(this);
+        _health = GetComponent<Health>();
+        _health.OnServerDie += ServerHandleDie;
     }
 
     public override void OnStopServer()
     {
         OnServerUnitDespawned?.Invoke(this);
+        _health.OnServerDie -= ServerHandleDie;
+    }
+
+    [Server]
+    private void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 
     #endregion
 
     #region Client
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if (!isClientOnly || !isOwned)
-            return;
-
         OnAuthorityUnitSpawned?.Invoke(this);
     }
 
     public override void OnStopClient()
     {
-        if (!isClientOnly || !isOwned)
+        if (!isOwned)
             return;
 
         OnAuthorityUnitDespawned?.Invoke(this);

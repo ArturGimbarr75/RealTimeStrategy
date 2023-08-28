@@ -1,10 +1,7 @@
 using Mirror;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class UnitSelectionHandler : MonoBehaviour
 {
@@ -15,12 +12,22 @@ public class UnitSelectionHandler : MonoBehaviour
     [SerializeField]
     private LayerMask _layerMask = new();
 
-    private RTSPlayerScript _player;
+    private RTSPlayer _player;
     private Vector2 _startPosition;
+
+    private void Start()
+    {
+        Unit.OnAuthorityUnitDespawned += HandleUnitDespawned;
+    }
+
+    private void OnDestroy()
+    {
+        Unit.OnAuthorityUnitDespawned -= HandleUnitDespawned;
+    }
 
     private void Update()
     {
-        _player ??= NetworkClient.connection.identity?.GetComponent<RTSPlayerScript>();
+        _player ??= NetworkClient.connection.identity?.GetComponent<RTSPlayer>();
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
             StartSelectionArea();            
@@ -103,5 +110,10 @@ public class UnitSelectionHandler : MonoBehaviour
             && value.x < max.x
             && value.y > min.y
             && value.y < max.y;
+    }
+
+    private void HandleUnitDespawned(Unit unit)
+    {
+        SelectedUnits.Remove(unit);
     }
 }

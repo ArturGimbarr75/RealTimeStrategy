@@ -1,8 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class RTSPlayerScript : NetworkBehaviour
+public class RTSPlayer : NetworkBehaviour
 {
     public List<Unit> MyUnits { get; private set; } = new();
 
@@ -40,9 +39,9 @@ public class RTSPlayerScript : NetworkBehaviour
 
     #region Client
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if (!isClientOnly)
+        if (NetworkServer.active)
             return;
 
         Unit.OnAuthorityUnitSpawned -= AuthorityHandleUnitSpawned;
@@ -51,7 +50,7 @@ public class RTSPlayerScript : NetworkBehaviour
 
     public override void OnStopClient()
     {
-        if (!isClientOnly)
+        if (!isClientOnly || !isOwned)
             return;
 
         Unit.OnAuthorityUnitSpawned -= AuthorityHandleUnitSpawned;
