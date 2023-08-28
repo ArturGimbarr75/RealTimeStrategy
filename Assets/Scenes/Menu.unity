@@ -401,6 +401,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5056595024680514797, guid: 7fd18eb264d2e23458bb0c16542ac7c6,
         type: 3}
+      propertyPath: _gameOverHandlerPrefab
+      value: 
+      objectReference: {fileID: 7350640140452857950, guid: ecd2b694020c8fa4fad50efc3f817565,
+        type: 3}
+    - target: {fileID: 5056595024680514797, guid: 7fd18eb264d2e23458bb0c16542ac7c6,
+        type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}
