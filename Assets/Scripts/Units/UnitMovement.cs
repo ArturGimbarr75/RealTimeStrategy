@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,22 @@ public class UnitMovement : NetworkBehaviour
     private float _chaseRange;
 
     #region Server
+
+    public override void OnStartServer()
+    {
+        GameOverHandler.OnServerGameOver += ServerHandleGameOver;
+    }
+
+    public override void OnStopServer()
+    {
+        GameOverHandler.OnServerGameOver -= ServerHandleGameOver;
+    }
+
+    [Server]
+    private void ServerHandleGameOver()
+    {
+        _agent.ResetPath();
+    }
 
     [ServerCallback]
     private void Update()

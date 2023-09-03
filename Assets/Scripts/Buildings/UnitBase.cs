@@ -6,6 +6,7 @@ public class UnitBase : NetworkBehaviour
 {
     private Health _health;
 
+    public static event Action<int> OnServerPlayerDie;
     public static event Action<UnitBase> OnServerBaseSpawned;
     public static event Action<UnitBase> OnServerBaseDespawned;
 
@@ -28,8 +29,8 @@ public class UnitBase : NetworkBehaviour
 
     private void ServerHandlerDie()
     {
+        OnServerPlayerDie?.Invoke(connectionToClient.connectionId);
         NetworkServer.Destroy(gameObject);
-        Debug.Log("Base died");
     }
 
     #endregion

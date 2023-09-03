@@ -9,6 +9,11 @@ public class UnitCommandGiver : MonoBehaviour
     [SerializeField]
     private LayerMask _layerMask;
 
+    private void Start()
+    {
+        GameOverHandler.OnClientGameOver += ClientHandleGameOver;
+    }
+
     private void Update()
     {
         if (!Mouse.current.rightButton.wasPressedThisFrame)
@@ -31,6 +36,16 @@ public class UnitCommandGiver : MonoBehaviour
             return;
         }
         TryMove(hit.point);
+    }
+
+    private void OnDestroy()
+    {
+        GameOverHandler.OnClientGameOver -= ClientHandleGameOver;
+    }
+
+    private void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
     }
 
     private void TryMove(Vector3 point)
