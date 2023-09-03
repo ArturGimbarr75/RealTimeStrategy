@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4306767838370991885}
   - component: {fileID: 4306767838370991887}
   - component: {fileID: 4306767838370991884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 768734653673047978}
   - component: {fileID: 6550425831377731269}
   - component: {fileID: 1107963034894374195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4897,6 +4897,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _rigidbody: {fileID: 6550425831377731269}
+  _damageToDeal: 20
   _destroyAfterSeconds: 5
   _launchForce: 10
 --- !u!1 &4306767838726559831
@@ -4911,7 +4912,7 @@ GameObject:
   - component: {fileID: 4306767838726559824}
   - component: {fileID: 4306767838726559825}
   - component: {fileID: 4306767838726559830}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
