@@ -33,7 +33,7 @@ public class UnitMovement : NetworkBehaviour
     [ServerCallback]
     private void Update()
     {
-        if (_targeter.Target is not null)
+        if (_targeter?.Target is not null)
         {
             if (Vector3.Distance(transform.position, _targeter.Target.transform.position) > _chaseRange)
             {

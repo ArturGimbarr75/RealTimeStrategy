@@ -21,7 +21,7 @@ public class UnitFiring : NetworkBehaviour
     [ServerCallback]
     private void Update()
     {
-        if (_targeter.Target is null)
+        if (_targeter?.Target is null)
             return;
 
         if (Vector3.Distance(_targeter.Target.transform.position, transform.position) > _fireRange)
