@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Health : NetworkBehaviour
 {
-    [SerializeField]
-    private int _maxHealth = 100;
+    public float HealthAmount => CurrentHealth / MaxHealth;
 
-    [SyncVar(hook=nameof(HandleHealthUpdated))]
-    private int _currentHealth;
+    [field: SerializeField]
+    public int MaxHealth { get; private set; } = 100;
+
+    [field:SyncVar(hook=nameof(HandleHealthUpdated))]
+    public int CurrentHealth { get; private set; }
 
     public event Action OnServerDie;
     public event Action<int, int> OnClientHealthUpdated;
@@ -17,7 +19,7 @@ public class Health : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        _currentHealth = _maxHealth;
+        CurrentHealth = MaxHealth;
         UnitBase.OnServerPlayerDie += ServerHandlePlayerDie;
     }
 
@@ -36,12 +38,12 @@ public class Health : NetworkBehaviour
     [Server]
     public void DealDamage(int damageAmount)
     {
-        if (_currentHealth == 0)
+        if (CurrentHealth == 0)
             return;
 
-        _currentHealth = Mathf.Max(_currentHealth - damageAmount, 0);
+        CurrentHealth = Mathf.Max(CurrentHealth - damageAmount, 0);
 
-        if (_currentHealth == 0)
+        if (CurrentHealth == 0)
         {
             OnServerDie?.Invoke();
             Debug.Log($"Died {gameObject}");
@@ -51,7 +53,7 @@ public class Health : NetworkBehaviour
     [Server]
     public void Kill()
     {
-        DealDamage(_currentHealth);
+        DealDamage(CurrentHealth);
     }
 
     #endregion
@@ -60,7 +62,7 @@ public class Health : NetworkBehaviour
 
     private void HandleHealthUpdated(int _, int newHealth)
     {
-        OnClientHealthUpdated?.Invoke(newHealth, _maxHealth);
+        OnClientHealthUpdated?.Invoke(newHealth, MaxHealth);
     }
 
     #endregion

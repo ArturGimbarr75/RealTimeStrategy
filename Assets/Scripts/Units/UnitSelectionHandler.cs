@@ -30,7 +30,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
-        _player ??= NetworkClient.connection.identity?.GetComponent<RTSPlayer>();
+        _player ??= NetworkClient.connection?.identity?.GetComponent<RTSPlayer>();
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
             StartSelectionArea();            
@@ -45,9 +45,8 @@ public class UnitSelectionHandler : MonoBehaviour
         if (!Keyboard.current.leftShiftKey.isPressed)
         {
             foreach (Unit selectedUnit in SelectedUnits)
-            {
                 selectedUnit.Deselect();
-            }
+
             SelectedUnits.Clear();
         }
 

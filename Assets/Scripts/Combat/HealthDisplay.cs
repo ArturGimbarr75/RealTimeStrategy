@@ -21,6 +21,7 @@ public class HealthDisplay : MonoBehaviour
     private void Start()
     {
         _health.OnClientHealthUpdated += HealthChangedUpdate;
+        HealthChangedUpdate(_health.CurrentHealth, _health.MaxHealth);
     }
 
     private void HealthChangedUpdate(int current, int max)
