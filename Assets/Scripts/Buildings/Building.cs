@@ -16,6 +16,8 @@ public class Building : NetworkBehaviour
     public int Id { get; private set; } = -1;
     [field: SerializeField, Min(0)]
     public int Price { get; private set; }
+    [field: SerializeField]
+    public GameObject BuildingPreview { get; private set; }
 
     #region Server
 

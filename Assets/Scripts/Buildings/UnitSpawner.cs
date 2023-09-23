@@ -1,11 +1,8 @@
 using Mirror;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UnitsSpawner : NetworkBehaviour, IPointerClickHandler
+public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private GameObject _unitPrefab;
