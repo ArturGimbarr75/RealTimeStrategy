@@ -1,10 +1,13 @@
 using Mirror;
-using System;
 using System.Collections.Generic;
-using static UnityEngine.UI.CanvasScaler;
+using System.Linq;
+using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
+    [SerializeField]
+    private Building[] _buildings;
+
     public List<Unit> MyUnits { get; private set; } = new();
     public List<Building> MyBuildings { get; private set; } = new();
 
@@ -24,6 +27,19 @@ public class RTSPlayer : NetworkBehaviour
         Unit.OnServerUnitDespawned -= ServerHandleUnitDespawned;
         Building.OnServerBuildingSpawned -= ServerHandleBuildingSpawned;
         Building.OnServerBuildingDespawned -= ServerHandleBuildingDespawned;
+    }
+
+    [Command]
+    public void CmdTryPlaceBuilding(int buildingId, Vector3 point)
+    {
+        Building? buildingToPlace = _buildings.FirstOrDefault(b => b.Id == buildingId);
+        
+        if (buildingToPlace is null)
+            return;
+
+        var buildingInstance = 
+            Instantiate(buildingToPlace.gameObject, point, buildingToPlace.transform.rotation);
+        NetworkServer.Spawn(buildingInstance, connectionToClient);
     }
 
     private void ServerHandleUnitSpawned(Unit unit)
