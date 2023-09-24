@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class UnitMovement : NetworkBehaviour
 {
@@ -53,6 +54,12 @@ public class UnitMovement : NetworkBehaviour
 
     [Command]
     public void CmdMove(Vector3 position)
+    {
+        ServerMove(position);
+    }
+
+    [Server]
+    public void ServerMove(Vector3 position)
     {
         _targeter.ClearTarget();
 

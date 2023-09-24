@@ -39,6 +39,11 @@ public class RTSPlayer : NetworkBehaviour
     {
         Resources += count;
     }
+    [Server]
+    public void TakeResources(int count)
+    {
+        Resources -= count;
+    }
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingId, Vector3 point)

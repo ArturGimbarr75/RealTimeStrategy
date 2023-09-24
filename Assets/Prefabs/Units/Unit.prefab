@@ -79,6 +79,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  <ResourceCost>k__BackingField: 50
   _onSelected:
     m_PersistentCalls:
       m_Calls:
@@ -264,7 +265,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  _maxHealth: 100
+  <MaxHealth>k__BackingField: 100
 --- !u!114 &822669503872644310
 MonoBehaviour:
   m_ObjectHideFlags: 0

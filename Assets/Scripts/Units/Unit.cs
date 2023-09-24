@@ -8,6 +8,9 @@ public class Unit : NetworkBehaviour
     public UnitMovement Movement { get; private set; }
     public Targeter Targeter { get; private set; }
 
+    [field: SerializeField]
+    public int ResourceCost { get; private set; }
+
     private Health _health;
 
     [SerializeField]
