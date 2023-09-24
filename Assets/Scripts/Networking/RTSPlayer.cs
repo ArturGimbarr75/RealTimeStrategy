@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField]
     private Building[] _buildings;
 
+    public event Action<int, int> OnClientResourcesUpdated;
+
+    [field: SyncVar(hook=nameof(ClientHandleResoucesUpdated))]
+    public int Resources { get; private set; } = 500;
     public List<Unit> MyUnits { get; private set; } = new();
     public List<Building> MyBuildings { get; private set; } = new();
 
@@ -27,6 +32,12 @@ public class RTSPlayer : NetworkBehaviour
         Unit.OnServerUnitDespawned -= ServerHandleUnitDespawned;
         Building.OnServerBuildingSpawned -= ServerHandleBuildingSpawned;
         Building.OnServerBuildingDespawned -= ServerHandleBuildingDespawned;
+    }
+
+    [Server]
+    public void AddResources(int count)
+    {
+        Resources += count;
     }
 
     [Command]
@@ -90,6 +101,11 @@ public class RTSPlayer : NetworkBehaviour
         Unit.OnAuthorityUnitDespawned -= AuthorityHandleUnitDespawned;
         Building.OnAuthorityBuildingSpawned -= AuthorityHandleBuildingSpawned;
         Building.OnAuthorityBuildingDespawned -= AuthorityHandleBuildingDespawned;
+    }
+
+    private void ClientHandleResoucesUpdated(int old, int @new)
+    {
+        OnClientResourcesUpdated?.Invoke(old, @new);
     }
 
     private void AuthorityHandleUnitDespawned(Unit unit)

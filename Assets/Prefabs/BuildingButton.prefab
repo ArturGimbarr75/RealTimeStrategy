@@ -347,7 +347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def9a66ab6bc7654a8aa390fb6574c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _building: {fileID: 0}
+  _building: {fileID: 7183687733595127491, guid: a5f1d3b62861a7b4eb54ba8c0e6a9ed4,
+    type: 3}
   _iconImage: {fileID: 3756011827004597606}
   _priceText: {fileID: 2057158916321306756}
   _floorMask:
